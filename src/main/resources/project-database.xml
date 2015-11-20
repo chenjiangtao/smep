@@ -14,8 +14,8 @@
 	<!-- 数据源定义 -->
 	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://10.201.250.109:3306/mas?characterEncoding=utf-8" />
-		<!-- <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/mas?characterEncoding=utf-8" />  -->
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://10.201.250.109:3306/mas?characterEncoding=utf-8" /> -->
+		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/mas?characterEncoding=utf-8" />
 		<property name="username" value="root" />
 		<property name="password" value="repLcmc0613" />
 		<property name="idleConnectionTestPeriodInMinutes" value="10" />
