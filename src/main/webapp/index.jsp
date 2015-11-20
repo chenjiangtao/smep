@@ -12,7 +12,7 @@
 <br>
 &nbsp;&nbsp;<b>ADC平台与SI应用系统接口 (V3.0)</b>
 <br>&nbsp;&nbsp;
-APService WSDL: <a href="./services/APService?wsdl"><%=request.getRequestURL()%>services/APservice</a>
+APService WSDL: <a href="./services/APService?wsdl"><%=request.getRequestURL()%>services/APService</a>
 <br>&nbsp;&nbsp;
 ADC Simulator: <a href="./simulator/corpbind.jsp">CorpBind</a>&nbsp;
 <a href="./simulator/deptbind.jsp">DeptBind</a>&nbsp;
