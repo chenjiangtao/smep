@@ -1,0 +1,12 @@
+BODY
+{
+    BACKGROUND-COLOR: #000000;
+    COLOR: #000000;
+    FONT-FAMILY: 'Times New Roman'
+}
+
+label
+{
+    color: #8b0000;
+    cursor:hand;
+}

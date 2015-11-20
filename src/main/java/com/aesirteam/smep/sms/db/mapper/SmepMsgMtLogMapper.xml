@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.aesirteam.smep.sms.db.mapper.SmepMsgMtLogMapper" >
+  
+  <resultMap id="BaseResultMap" type="com.aesirteam.smep.sms.db.domain.MsgMtLog" >
+    <id column="MsgId" property="msgid" jdbcType="VARCHAR" />
+    <result column="SeqNo" property="seqno" jdbcType="VARCHAR" />
+    <result column="CorpNo" property="corpno" jdbcType="VARCHAR" />
+    <result column="Pk_Total" property="pkTotal" jdbcType="INTEGER" />
+    <result column="Pk_Number" property="pkNumber" jdbcType="INTEGER" />
+    <result column="Registered_Delivery" property="registeredDelivery" jdbcType="INTEGER" />
+    <result column="Msg_Level" property="msgLevel" jdbcType="INTEGER" />
+    <result column="Service_Id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="Fee_UserType" property="feeUsertype" jdbcType="INTEGER" />
+    <result column="Fee_Terminal_Id" property="feeTerminalId" jdbcType="VARCHAR" />
+    <result column="Tp_Pid" property="tpPid" jdbcType="INTEGER" />
+    <result column="Tp_Udhi" property="tpUdhi" jdbcType="INTEGER" />
+    <result column="Msg_Fmt" property="msgFmt" jdbcType="INTEGER" />
+    <result column="Msg_Src" property="msgSrc" jdbcType="VARCHAR" />
+    <result column="Fee_Type" property="feeType" jdbcType="VARCHAR" />
+    <result column="Fee_Code" property="feeCode" jdbcType="VARCHAR" />
+    <result column="Valid_Time" property="validTime" jdbcType="TIMESTAMP" />
+    <result column="At_Time" property="atTime" jdbcType="TIMESTAMP" />
+    <result column="Src_Terminal_Id" property="srcTerminalId" jdbcType="VARCHAR" />
+    <result column="Dest_Terminal_Id" property="destTerminalId" jdbcType="VARCHAR" />
+    <result column="Msg_Content" property="msgContent" jdbcType="VARCHAR" />
+    <result column="Reserve" property="reserve" jdbcType="VARCHAR" />
+    <result column="Fee_Terminal_Type" property="feeTerminalType" jdbcType="INTEGER" />
+    <result column="Dest_Terminal_Type" property="destTerminalType" jdbcType="INTEGER" />
+    <result column="LinkId" property="linkid" jdbcType="VARCHAR" />
+    <result column="Createor" property="createor" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="Protocol" property="protocol" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    MsgId, SeqNo, CorpNo, Pk_Total, Pk_Number, Registered_Delivery, Msg_Level, Service_Id, 
+    Fee_UserType, Fee_Terminal_Id, Tp_Pid, Tp_Udhi, Msg_Fmt, Msg_Src, Fee_Type, Fee_Code, 
+    Valid_Time, At_Time, Src_Terminal_Id, Dest_Terminal_Id, Msg_Content, Reserve, Fee_Terminal_Type, 
+    Dest_Terminal_Type, LinkId, Createor, CreateTime, Protocol
+  </sql>
+  
+  <select id="getData" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" />
+    from smep_msg_mt_log
+    where MsgId = #{msgid,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertData" parameterType="java.util.List">
+  	 insert into smep_msg_mt_log
+  	 (
+  	 	<include refid="Base_Column_List"/>
+  	 ) values 
+  	 <foreach collection="list" item="item" index="index" separator=",">
+  	 (
+	  	  #{item.msgid,jdbcType=VARCHAR},
+	      #{item.seqno,jdbcType=VARCHAR},
+	      #{item.corpno,jdbcType=VARCHAR},
+	      #{item.pkTotal,jdbcType=INTEGER},
+	      #{item.pkNumber,jdbcType=INTEGER},
+	      #{item.registeredDelivery,jdbcType=INTEGER},
+	      #{item.msgLevel,jdbcType=INTEGER},
+	      #{item.serviceId,jdbcType=VARCHAR},
+	      #{item.feeUsertype,jdbcType=INTEGER},
+	      #{item.feeTerminalId,jdbcType=VARCHAR},
+	      #{item.tpPid,jdbcType=INTEGER},
+	      #{item.tpUdhi,jdbcType=INTEGER},
+	      #{item.msgFmt,jdbcType=INTEGER},
+	      #{item.msgSrc,jdbcType=VARCHAR},
+	      #{item.feeType,jdbcType=VARCHAR},
+	      #{item.feeCode,jdbcType=VARCHAR},
+	      #{item.validTime,jdbcType=TIMESTAMP},
+	      #{item.atTime,jdbcType=TIMESTAMP},
+	      #{item.srcTerminalId,jdbcType=VARCHAR},
+	      #{item.destTerminalId,jdbcType=VARCHAR},
+	      #{item.msgContent,jdbcType=VARCHAR},
+	      #{item.reserve,jdbcType=VARCHAR},
+	      #{item.feeTerminalType,jdbcType=INTEGER},
+	      #{item.destTerminalType,jdbcType=INTEGER},
+	      #{item.linkid,jdbcType=VARCHAR},
+	      #{item.createor,jdbcType=VARCHAR},
+	      #{item.createtime,jdbcType=TIMESTAMP},
+	      #{item.protocol,jdbcType=VARCHAR}
+      )
+  	 </foreach>
+  </insert>
+</mapper>

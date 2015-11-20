@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aesirteam.smep.adc.db.mapper.SmepAdcCorpParamMapper" >
+  
+  <select id="getData" resultType="com.aesirteam.smep.adc.db.domain.SmepAdcCorpParam" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcCorpParam" >
+    select cpid, corpaccount, param_type, param_name, param_value
+    from smep_adc_corp_param
+    where corpaccount = #{corpaccount,jdbcType=VARCHAR} and param_type = #{paramType,jdbcType=VARCHAR} and param_name = #{paramName,jdbcType=VARCHAR}
+  </select>
+    
+  <insert id="insertData" parameterType="java.util.List" useGeneratedKeys="true">
+    insert into smep_adc_corp_param (corpaccount, param_type, param_name, param_value)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+    	#{item.corpaccount,jdbcType=VARCHAR}, #{item.paramType,jdbcType=VARCHAR}, #{item.paramName,jdbcType=VARCHAR}, #{item.paramValue,jdbcType=VARCHAR}
+    )
+    </foreach>
+  </insert>
+  
+  <update id="updateData" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcCorpParam" >
+    	update smep_adc_corp_param
+	    <set>
+	      <if test="corpaccount != null" >
+	        corpaccount = #{corpaccount,jdbcType=VARCHAR},
+	      </if>
+	      <if test="paramType != null" >
+	        param_type = #{paramType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="paramName != null" >
+	        param_name = #{paramName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="paramValue != null" >
+	        param_value = #{paramValue,jdbcType=VARCHAR}
+	      </if>
+	    </set>
+	    where corpaccount = #{corpaccount,jdbcType=VARCHAR} 
+	          and param_type = #{paramType,jdbcType=VARCHAR} 
+	          and param_name = #{paramName,jdbcType=VARCHAR}
+  </update>
+</mapper>

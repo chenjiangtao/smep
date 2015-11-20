@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.aesirteam.smep.sms.db.mapper.SmepMsgMoLogMapper" >
+
+  <resultMap id="BaseResultMap" type="com.aesirteam.smep.sms.db.domain.MsgMoLog" >
+    <id column="MsgId" property="msgid" jdbcType="VARCHAR" />
+    <result column="DestId" property="destid" jdbcType="VARCHAR" />
+    <result column="Service_Id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="Tp_Pid" property="tpPid" jdbcType="INTEGER" />
+    <result column="Tp_Udhi" property="tpUdhi" jdbcType="INTEGER" />
+    <result column="Msg_Fmt" property="msgFmt" jdbcType="INTEGER" />
+    <result column="Src_Terminal_Id" property="srcTerminalId" jdbcType="VARCHAR" />
+    <result column="Msg_Length" property="msgLength" jdbcType="INTEGER" />
+    <result column="Msg_Content" property="msgContent" jdbcType="VARCHAR" />
+    <result column="Src_terminal_type" property="srcTerminalType" jdbcType="INTEGER" />
+    <result column="LinkID" property="linkid" jdbcType="VARCHAR" />
+    <result column="Createor" property="createor" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="Protocol" property="protocol" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+     MsgId, DestId, Service_Id, Tp_Pid, Tp_Udhi, Msg_Fmt, Src_Terminal_Id, Msg_Length, Msg_Content, Src_terminal_type, LinkID, Createor, CreateTime, Protocol
+  </sql>
+  
+  <select id="getData" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" />
+    from smep_msg_mo_log
+    where MsgId = #{msgid,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertData" parameterType="java.util.List" >
+    insert into smep_msg_mo_log 
+    (
+    	<include refid="Base_Column_List"/>
+    ) values 
+  	<foreach collection="list" item="item" index="index" separator=",">
+      (
+      	#{item.msgid,jdbcType=VARCHAR},
+      	#{item.destid,jdbcType=VARCHAR},
+      	#{item.serviceId,jdbcType=VARCHAR},
+      	#{item.tpPid,jdbcType=INTEGER},
+      	#{item.tpUdhi,jdbcType=INTEGER},
+      	#{item.msgFmt,jdbcType=INTEGER},
+      	#{item.srcTerminalId,jdbcType=VARCHAR},
+      	#{item.msgLength,jdbcType=INTEGER},
+      	#{item.msgContent,jdbcType=VARCHAR},
+      	#{item.srcTerminalType,jdbcType=INTEGER},
+      	#{item.linkid,jdbcType=VARCHAR},
+        #{item.createor,jdbcType=VARCHAR},
+        #{item.createtime,jdbcType=TIMESTAMP},
+        #{item.protocol,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+</mapper>

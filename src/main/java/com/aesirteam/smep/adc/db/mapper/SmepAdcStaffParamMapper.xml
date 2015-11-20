@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aesirteam.smep.adc.db.mapper.SmepAdcStaffParamMapper" >
+
+  <select id="getData" resultType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffParam" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffParam" >
+    select spid, ufid, param_name, param_value
+    from smep_adc_staff_param
+    where ufid = #{ufid,jdbcType=VARCHAR} and paramName = #{paramName,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertData" parameterType="java.util.List" useGeneratedKeys="true">
+    insert into smep_adc_staff_param (ufid, param_name, param_value)
+    values
+    <foreach collection="list" item="item" index="index" separator=","> 
+    (
+    	#{item.ufid,jdbcType=VARCHAR}, #{item.paramName,jdbcType=VARCHAR}, #{item.paramValue,jdbcType=VARCHAR}
+    )
+    </foreach>
+  </insert>
+  
+  <update id="updateData" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffParam" >
+    update smep_adc_staff_param
+    <set >
+      <if test="ufid != null" >
+        ufid = #{ufid,jdbcType=VARCHAR},
+      </if>
+      <if test="paramName != null" >
+        param_name = #{paramName,jdbcType=VARCHAR},
+      </if>
+      <if test="paramValue != null" >
+        param_value = #{paramValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ufid = #{ufid,jdbcType=VARCHAR} and param_name = #{paramName,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.aesirteam.smep.core.db.mapper.SmepSysParamMapper" >
+
+  <resultMap id="BaseResultMap" type="com.aesirteam.smep.core.db.domain.SmepSysParam" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="param_group" property="paramGroup" jdbcType="VARCHAR" />
+    <result column="param_name" property="paramName" jdbcType="VARCHAR" />
+    <result column="param_value" property="paramValue" jdbcType="VARCHAR" />
+    <result column="param_desc" property="paramDesc" jdbcType="VARCHAR" />
+    <result column="description" property="engineDesc" jdbcType="VARCHAR" />
+  </resultMap>
+    
+  <select id="getData" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select a.*, b.description from smep_sys_param a
+	inner join smep_sys_engine b on a.param_group = b.EngineName and 
+	b.className = #{paramGroup,jdbcType=VARCHAR};
+  </select>
+  
+  <insert id="insertData" parameterType="com.aesirteam.smep.core.db.domain.SmepSysParam" useGeneratedKeys="true" keyProperty="id" >
+    insert into smep_sys_param (param_group, param_name, param_value, 
+      param_desc)
+    values (#{paramGroup,jdbcType=VARCHAR}, #{paramName,jdbcType=VARCHAR}, #{paramValue,jdbcType=VARCHAR}, 
+      #{paramDesc,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateData" parameterType="com.aesirteam.smep.core.db.domain.SmepSysParam" >
+    update smep_sys_param
+    set param_group = #{paramGroup,jdbcType=VARCHAR},
+      param_name = #{paramName,jdbcType=VARCHAR},
+      param_value = #{paramValue,jdbcType=VARCHAR},
+      param_desc = #{paramDesc,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

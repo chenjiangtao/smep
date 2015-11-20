@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aesirteam.smep.adc.db.mapper.SmepAdcCorpInfoMapper">
+	  
+	<select id="getData" resultType="com.aesirteam.smep.adc.db.domain.SmepAdcCorpInfo" parameterType="java.lang.String">
+		select corpaccount, license, optype, opnote, point, stdate, createor, corp_name, 
+    	corp_shortname, corp_linkman, corp_linkphone, corp_linkmobile
+		from smep_adc_corp_info 
+		where corpaccount = #{corpaccount,jdbcType=VARCHAR}
+	</select>
+	
+	<insert id="insertData" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcCorpInfo">
+		insert into smep_adc_corp_info ( corpaccount, license, optype, opnote, point, stdate, 
+				createor, corp_name, corp_shortname, corp_linkman, corp_linkphone, corp_linkmobile)
+		values (#{corpaccount,jdbcType=VARCHAR},
+				#{license,jdbcType=VARCHAR},
+				#{optype,jdbcType=INTEGER},
+				#{opnote,jdbcType=VARCHAR},
+				#{point,jdbcType=VARCHAR},
+				#{stdate,jdbcType=TIMESTAMP},
+				#{createor,jdbcType=INTEGER},
+				#{corpName,jdbcType=VARCHAR},
+				#{corpShortname,jdbcType=VARCHAR},
+				#{corpLinkman,jdbcType=VARCHAR},
+				#{corpLinkphone,jdbcType=VARCHAR},
+				#{corpLinkmobile,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateData" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcCorpInfo">
+		update smep_adc_corp_info
+		<set>
+			<if test="license != null">
+				license = #{license,jdbcType=VARCHAR},
+			</if>
+			<if test="optype != null">
+				optype = #{optype,jdbcType=INTEGER},
+			</if>
+			<if test="opnote != null">
+				opnote = #{opnote,jdbcType=VARCHAR},
+			</if>
+			<if test="point != null">
+				point = #{point,jdbcType=VARCHAR},
+			</if>
+			<if test="stdate != null">
+				stdate = #{stdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createor != null">
+				createor = #{createor,jdbcType=INTEGER},
+			</if>
+			<if test="corpName != null">
+				corp_name = #{corpName,jdbcType=VARCHAR},
+			</if>
+			<if test="corpShortname != null">
+				corp_shortname = #{corpShortname,jdbcType=VARCHAR},
+			</if>
+			<if test="corpLinkman != null">
+				corp_linkman = #{corpLinkman,jdbcType=VARCHAR},
+			</if>
+			<if test="corpLinkphone != null">
+				corp_linkphone = #{corpLinkphone,jdbcType=VARCHAR},
+			</if>
+			<if test="corpLinkmobile != null">
+				corp_linkmobile = #{corpLinkmobile,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where corpaccount = #{corpaccount,jdbcType=VARCHAR}
+	</update>
+</mapper>

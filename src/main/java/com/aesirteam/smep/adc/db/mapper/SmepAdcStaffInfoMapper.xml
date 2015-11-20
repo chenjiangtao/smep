@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aesirteam.smep.adc.db.mapper.SmepAdcStaffInfoMapper" >
+
+  <select id="getData" resultType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffInfo" parameterType="java.lang.String" >
+    select ufid, corpaccount, usertype, optype, opnote, stdate, createor, staff_name, 
+    staff_mobile, staff_sex, staff_deptid
+    from smep_adc_staff_info
+    where ufid = #{ufid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getDataByCorpAccount" resultType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffInfo" parameterType="java.lang.String" >
+    select ufid, corpaccount, usertype, optype, opnote, stdate, createor, staff_name, 
+    staff_mobile, staff_sex, staff_deptid
+    from smep_adc_staff_info
+    where corpaccount = #{corpaccount,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertData" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffInfo" >
+    insert into smep_adc_staff_info (ufid, corpaccount, usertype, optype, opnote, 
+           stdate, createor, staff_name, staff_mobile)
+    values (	
+        #{ufid,jdbcType=VARCHAR}, 
+    	#{corpaccount,jdbcType=VARCHAR}, 
+    	#{usertype,jdbcType=INTEGER}, 
+      	#{optype,jdbcType=INTEGER}, 
+      	#{opnote,jdbcType=VARCHAR}, 
+      	#{stdate,jdbcType=TIMESTAMP}, 
+      	#{createor,jdbcType=INTEGER}, 
+      	#{staffName,jdbcType=VARCHAR}, 
+      	#{staffMobile,jdbcType=VARCHAR}
+     )
+  </insert>
+  
+  <update id="updateData" parameterType="com.aesirteam.smep.adc.db.domain.SmepAdcStaffInfo" >
+    update smep_adc_staff_info
+	    <set >
+	      <if test="corpaccount != null" >
+	        corpaccount = #{corpaccount,jdbcType=VARCHAR},
+	      </if>
+	      <if test="usertype != null" >
+	        usertype = #{usertype,jdbcType=INTEGER},
+	      </if>
+	      <if test="optype != null" >
+	        optype = #{optype,jdbcType=INTEGER},
+	      </if>
+	      <if test="opnote != null" >
+	        opnote = #{opnote,jdbcType=VARCHAR},
+	      </if>
+	      <if test="stdate != null" >
+	        stdate = #{stdate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="createor != null" >
+	        createor = #{createor,jdbcType=INTEGER},
+	      </if>
+	      <if test="staffName != null" >
+	        staff_name = #{staffName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="staffMobile != null" >
+	        staff_mobile = #{staffMobile,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where ufid = #{ufid,jdbcType=VARCHAR}
+  </update>
+</mapper>

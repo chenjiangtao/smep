@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+    
+	<context:annotation-config/>
+
+    <bean id="sysParams" class="com.aesirteam.smep.resources.SysParams">
+		<constructor-arg name="sourceMap">
+			<map>
+				<entry key="sms.queueName" value="q:sms:mt:tosend" />
+				<entry key="sms.queueMaxLength" value="100000" />
+				<entry key="sms.submitQueuePrefix" value="run:sms_owner" />
+				<entry key="sms.bZip" value="true" />
+				<entry key="mms.queueName" value="q:mms:mt:tosend" />
+				<entry key="mms.queueMaxLength" value="100000" />
+				<entry key="mms.submitQueuePrefix" value="run:mms_owner" />
+				<entry key="mms.bZip" value="true" />
+				<entry key="mms.content.root.path" value="/home"/>
+				<entry key="mobileSplitStr" value="," />
+				
+				<!-- 1340~1348、135~139、147、150~152、157~159、182~184、187~188 -->
+				<entry key="mobileSegNum" value="^([+]?86)?((135|136|137|138|139|147|150|151|152|157|158|159|182|183|184|187|188)\d{8}|(1340|1341|1342|1343|1344|1345|1346|1347|1348)\d{7})$" />
+				<!-- 130~132、145、155~156、185~186 -->
+				<entry key="unicomSegNum" value="^([+]?86)?(130|131|132|145|155|156|185|186)\d{8}$" />
+				<!-- 133、1349、153、180~181、189 -->
+				<entry key="telecomSegNum" value="^([+]?86)?((133|153|180|181|189)\d{8}|1349\d{7})$" />
+								
+				<entry key="test.corpNo" value="850010102169" />
+				<entry key="test.srcAddr" value="10657021000101" />
+				<entry key="test.destAddrFile" value="c:\callno.csv" />
+				<entry key="test.msgContentFile" value="c:\msgcontent.txt" />
+				<entry key="test.priorityLevel" value="9" />
+				<entry key="test.needStautsReport" value="1" />
+				<entry key="test.atTime" value="NULL" />
+				<entry key="test.vaildTime" value="NULL" />
+				<entry key="test.createor" value="UFID000000000004" />
+				<entry key="test.mmsAdjFiles" value="c:\adjFilePaths.txt" />
+				<entry key="test.sendAddress" value="10657021880003" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="jedisFactory" class="com.aesirteam.smep.resources.JedisFactory" init-method="init">
+		<constructor-arg name="redisParam">
+			<map>
+				<entry key="host" value="10.201.250.109"/> 
+				<!--  <entry key="host" value="127.0.0.1" /> --> 
+				<entry key="port" value="6379" />
+				<entry key="database" value="0" />
+				<entry key="timeout" value="0" />
+				<entry key="maxactive" value="200" />
+				<entry key="maxidle" value="50" />
+				<entry key="maxwait" value="3000" />
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="illegalContentFilter" class="com.aesirteam.smep.resources.IllegalContentFilter" />
+	
+	<bean id="masInterface" class="com.aesirteam.smep.client.MasInterfaceImpl"/>
+</beans>

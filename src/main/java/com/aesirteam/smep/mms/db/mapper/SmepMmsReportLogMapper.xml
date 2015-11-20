@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aesirteam.smep.mms.db.mapper.SmepMmsReportLogMapper" >
+
+  <resultMap id="BaseResultMap" type="com.aesirteam.smep.mms.db.domain.MmsReportLog" >
+    <id column="TransactionId" property="transactionid" jdbcType="VARCHAR" />
+    <result column="MMSVersion" property="mmsversion" jdbcType="VARCHAR" />
+    <result column="MMSRelayServerID" property="mmsrelayserverid" jdbcType="VARCHAR" />
+    <result column="MessageID" property="messageid" jdbcType="VARCHAR" />
+    <result column="Dest_terminal_Id" property="destTerminalId" jdbcType="VARCHAR" />
+    <result column="Src_Terminal_Id" property="srcTerminalId" jdbcType="VARCHAR" />
+    <result column="MMTimeStamp" property="mmtimestamp" jdbcType="TIMESTAMP" />
+    <result column="MMStatus" property="mmstatus" jdbcType="INTEGER" />
+    <result column="StatusText" property="statustext" jdbcType="VARCHAR" />
+    <result column="Createor" property="createor" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="Protocol" property="protocol" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    TransactionId, MMSVersion, MMSRelayServerID, MessageID, Dest_terminal_Id, Src_Terminal_Id, 
+    MMTimeStamp, MMStatus, StatusText, Createor, CreateTime, Protocol
+  </sql>
+  
+  <select id="getData" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from smep_mms_report_log
+    where TransactionId = #{transactionid,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertData" parameterType="java.util.List">
+    insert into smep_mms_report_log 
+	(
+  	  <include refid="Base_Column_List"/>
+  	) values 
+  	<foreach collection="list" item="item" index="index" separator=",">
+  	(
+  		#{item.transactionid,jdbcType=VARCHAR}, 
+  		#{item.mmsversion,jdbcType=VARCHAR}, 
+  		#{item.mmsrelayserverid,jdbcType=VARCHAR}, 
+      	#{item.messageid,jdbcType=VARCHAR}, 
+      	#{item.destTerminalId,jdbcType=VARCHAR}, 
+      	#{item.srcTerminalId,jdbcType=VARCHAR}, 
+      	#{item.mmtimestamp,jdbcType=TIMESTAMP}, 
+      	#{item.mmstatus,jdbcType=INTEGER}, 
+      	#{item.statustext,jdbcType=VARCHAR}, 
+      	#{item.createor,jdbcType=VARCHAR}, 
+      	#{item.createtime,jdbcType=TIMESTAMP}, 
+      	#{item.protocol,jdbcType=VARCHAR}
+  	)
+  	</foreach>
+  </insert>
+</mapper>

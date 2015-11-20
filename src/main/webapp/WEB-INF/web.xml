@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>smep</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:project-web.xml</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>classpath:log4j.properties</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Spring MVC -->
+	<servlet>
+		<servlet-name>smep</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>smep</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.css</url-pattern>
+      </servlet-mapping>
+  
+       <servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.gif</url-pattern>
+      </servlet-mapping>
+      
+     <servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.jpg</url-pattern>
+     </servlet-mapping>
+      
+     <servlet-mapping>
+          <servlet-name>default</servlet-name>
+          <url-pattern>*.js</url-pattern>
+     </servlet-mapping>
+     
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Axis Servlet -->
+	<servlet>
+		<display-name>Apache-Axis Servlet</display-name>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ADC Simulator -->
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>com.aesirteam.smep.adc.simulator.CharsetFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>gbk</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/smep/simulator/*</url-pattern> 
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/translet</url-pattern> 
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>translet</servlet-name>
+		<servlet-class>com.aesirteam.smep.adc.simulator.TransletServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>translet</servlet-name>
+		<url-pattern>/translet</url-pattern>
+	</servlet-mapping>
+</web-app>
